@@ -18,7 +18,13 @@ const Layout = ({
   useUpdateStreakEffect({ setLastViewedModule });
   return (
     <BlindModeProvider>
-      <div className="font-sans">{children}</div>
+      <div className="relative min-h-screen font-sans">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 bg-[url('/images/math-doodles.png')] bg-repeat bg-center opacity-5"
+        />
+        <div className="relative z-10">{children}</div>
+      </div>
     </BlindModeProvider>
   );
 };

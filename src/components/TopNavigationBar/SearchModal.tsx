@@ -20,17 +20,17 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   return (
     <Dialog
       // z-20 is on the top navigation bar
-      className="relative z-30"
+      className="relative z-50"
       open={isOpen}
       onClose={() => onClose()}
       initialFocus={loadingFocusRef}
     >
       <DialogBackdrop
         transition
-        className="fixed inset-0 bg-gray-500/75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[enter]:ease-out data-[leave]:duration-200 data-[leave]:ease-in dark:bg-gray-900/75"
+        className="fixed inset-0 z-40 bg-gray-500/75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[enter]:ease-out data-[leave]:duration-200 data-[leave]:ease-in dark:bg-gray-900/75"
       />
 
-      <div className="fixed inset-0 z-30 w-screen overflow-y-auto">
+      <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
         <div className="mx-4 my-8 sm:my-16">
           <DialogPanel
             transition

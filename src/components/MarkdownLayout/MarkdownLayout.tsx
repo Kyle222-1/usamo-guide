@@ -6,7 +6,6 @@ import {
   moduleIDToURLMap,
 } from '../../../content/ordering';
 import ConfettiContext from '../../context/ConfettiContext';
-import { ContactUsSlideoverProvider } from '../../context/ContactUsSlideoverContext';
 import MarkdownLayoutContext from '../../context/MarkdownLayoutContext';
 import { ProblemSolutionContext } from '../../context/ProblemSolutionContext';
 import { ProblemSuggestionModalProvider } from '../../context/ProblemSuggestionModalContext';
@@ -39,10 +38,12 @@ const ContentContainer = ({ children, tableOfContents }) => (
           className="order-1 hidden shrink-0 lg:block"
           style={{ width: '20rem' }}
         />
-        <div className="order-3 mt-48 mr-6 ml-6 hidden w-64 shrink-0 2xl:block">
-          <TableOfContentsSidebar tableOfContents={tableOfContents} />
+        <div className="order-3 hidden w-72 shrink-0 2xl:flex 2xl:items-center 2xl:justify-center">
+          <div className="w-full px-3">
+            <TableOfContentsSidebar tableOfContents={tableOfContents} />
+          </div>
         </div>
-        <div className="order-2 w-0 max-w-4xl min-w-0 flex-1 overflow-x-auto px-4 sm:px-6 lg:px-8 2xl:max-h-screen 2xl:overflow-y-auto">
+        <div className="order-2 w-0 max-w-6xl min-w-0 flex-1 overflow-x-auto px-4 sm:px-6 lg:px-8 2xl:max-h-screen 2xl:overflow-y-auto">
           <div className="hidden lg:block">
             <NavBar />
             <div className="h-8" />
@@ -136,36 +137,34 @@ export default function MarkdownLayout({
         handleCompletionChange,
       }}
     >
-      <ContactUsSlideoverProvider>
-        <ProblemSuggestionModalProvider>
-          <MobileSideNav />
-          <DesktopSidebar />
+      <ProblemSuggestionModalProvider>
+        <MobileSideNav />
+        <DesktopSidebar />
 
-          <div className="w-full">
-            <MobileAppBar />
+        <div className="w-full">
+          <MobileAppBar />
 
-            <ContentContainer tableOfContents={tableOfContents}>
-              <NotSignedInWarning />
+          <ContentContainer tableOfContents={tableOfContents}>
+            <NotSignedInWarning />
 
-              <ModuleHeaders moduleLinks={moduleLinks} />
+            <ModuleHeaders moduleLinks={moduleLinks} />
 
-              <div className={tableOfContents.length > 1 ? '2xl:hidden' : ''}>
-                <TableOfContentsBlock tableOfContents={tableOfContents} />
-              </div>
+            <div className={tableOfContents.length > 1 ? '2xl:hidden' : ''}>
+              <TableOfContentsBlock tableOfContents={tableOfContents} />
+            </div>
 
-              {children}
+            {children}
 
-              <ModuleProgressUpdateBanner />
+            <ModuleProgressUpdateBanner />
 
-              <ForumCTA />
+            <ForumCTA />
 
-              {/*<div className="my-8">*/}
-              {/*  <ModuleFeedback markdownData={markdownData} />*/}
-              {/*</div>*/}
-            </ContentContainer>
-          </div>
-        </ProblemSuggestionModalProvider>
-      </ContactUsSlideoverProvider>
+            {/*<div className="my-8">*/}
+            {/*  <ModuleFeedback markdownData={markdownData} />*/}
+            {/*</div>*/}
+          </ContentContainer>
+        </div>
+      </ProblemSuggestionModalProvider>
     </MarkdownLayoutContext.Provider>
   );
 }

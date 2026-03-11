@@ -66,7 +66,7 @@ export default function SettingsPage(props) {
 
       <TopNavigationBar />
 
-      <main>
+      <main className="ui-page min-h-screen">
         <div className="relative mx-auto max-w-xl md:px-8 xl:px-0">
           <button
             className="btn mx-4 mt-8 sm:mx-6 md:mx-0"

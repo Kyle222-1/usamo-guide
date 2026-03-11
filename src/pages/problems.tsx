@@ -114,7 +114,7 @@ export default function ProblemsPage(props: PageProps<DataProps>) {
     <Layout>
       <SEO title="All Problems" image={null} pathname={props.path} />
 
-      <div className="dark:bg-dark-surface min-h-screen bg-gray-100">
+      <div className="problems-page ui-page min-h-screen">
         <TopNavigationBar />
 
         <InstantSearch
@@ -122,93 +122,94 @@ export default function ProblemsPage(props: PageProps<DataProps>) {
           indexName={indexName}
           future={{ preserveSharedStateOnUnmount: true }}
         >
-          <div className="bg-blue-600 px-5 py-16 dark:bg-blue-900">
-            <div className="mx-auto mb-6 max-w-3xl">
-              <h1 className="dark:text-dark-high-emphasis mb-6 text-center text-3xl font-bold text-white sm:text-5xl">
-                Problems
-              </h1>
-              <SearchBox />
-            </div>
-          </div>
-          <div className="mx-9 mt-4 mb-1 flex justify-center">
-            <PoweredBy />
-          </div>
-
-          <div className="grid grid-cols-10 px-9 pt-3 pb-4">
-            <div className="col-span-5 overflow-y-auto sm:col-span-4 md:col-span-3 lg:col-span-2 xl:col-span-2">
+          <div className="grid grid-cols-12 gap-x-6 px-6 pb-6 lg:px-9">
+            <aside className="col-span-12 pt-6 sm:col-span-4 md:col-span-3 lg:col-span-2 xl:col-span-2">
               <div className="mb-4">
                 <BlindModeToggle />
               </div>
               <TagsRefinementList />
-            </div>
-            <div className="col-span-5 px-1 py-0.5 sm:col-span-6 md:col-span-7 lg:col-span-8 xl:col-span-8">
-              <div className="mb-5 grid grid-cols-1 items-center gap-x-5 gap-y-3 sm:grid-cols-2 lg:grid-cols-6">
-                {selectionMetadata.map(props => (
-                  <div
-                    className="tw-forms-disable-all-descendants col-span-2 sm:col-span-3 md:col-span-1 lg:col-span-2"
-                    key={props.attribute}
-                  >
-                    <Selection {...props} />
-                  </div>
-                ))}
+            </aside>
+            <main className="col-span-12 sm:col-span-8 md:col-span-9 lg:col-span-10 xl:col-span-10">
+              <div className="bg-fuchsia-300 px-5 py-16 dark:bg-indigo-300">
+                <div className="mx-auto mb-6 max-w-3xl">
+                  <h1 className="dark:text-dark-high-emphasis mb-6 text-center text-3xl font-bold text-white sm:text-5xl">
+                    Problems
+                  </h1>
+                  <SearchBox />
+                </div>
               </div>
-              <div className="mb-5 flex justify-center gap-3">
-                <button
-                  onClick={() => sendShuffle(shuffle + 1)}
-                  className="inline-flex items-center rounded-md border border-blue-500 bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:border-blue-400 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700"
-                  title={'Shuffle problems'}
-                >
-                  <svg
-                    className={'mr-2 h-5 w-5 text-gray-200'}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
-                  Shuffle
-                </button>
-                <button
-                  onClick={() => sendRandom(random + 1)}
-                  className="inline-flex items-center rounded-md border border-blue-500 bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:border-blue-400 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700"
-                  title={'Go to a random unsolved problem'}
-                >
-                  <svg
-                    className={'mr-2 h-5 w-5 text-gray-200'}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                    <circle cx="8" cy="8" r="1" />
-                    <circle cx="16" cy="8" r="1" />
-                    <circle cx="8" cy="16" r="1" />
-                    <circle cx="16" cy="16" r="1" />
-                    <circle cx="12" cy="12" r="1" />
-                  </svg>
-                  Random
-                </button>
+              <div className="mt-4 mb-1 flex justify-center">
+                <PoweredBy />
               </div>
-              <ProblemHits shuffle={shuffle} random={random} />
-              <div className="mt-3 flex flex-wrap justify-center">
-                <Pagination showLast={true} className="pr-4" />
-                <HitsPerPage
-                  items={[
-                    { label: '24 hits per page', value: 24, default: true },
-                    { label: '32 hits per page', value: 32 },
-                    { label: '48 hits per page', value: 48 },
-                  ]}
-                  className="mt-1 lg:mt-0"
-                />
+              <div className="px-1 py-0.5">
+                <div className="mb-5 grid grid-cols-1 items-center gap-x-5 gap-y-3 sm:grid-cols-2 lg:grid-cols-6">
+                  {selectionMetadata.map(props => (
+                    <div
+                      className="tw-forms-disable-all-descendants col-span-2 sm:col-span-3 md:col-span-1 lg:col-span-2"
+                      key={props.attribute}
+                    >
+                      <Selection {...props} />
+                    </div>
+                  ))}
+                </div>
+                <div className="mb-5 flex justify-center gap-3">
+                  <button
+                    onClick={() => sendShuffle(shuffle + 1)}
+                    className="inline-flex items-center rounded-md border border-blue-500 bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:border-blue-400 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700"
+                    title={'Shuffle problems'}
+                  >
+                    <svg
+                      className={'mr-2 h-5 w-5 text-gray-200'}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
+                    </svg>
+                    Shuffle
+                  </button>
+                  <button
+                    onClick={() => sendRandom(random + 1)}
+                    className="inline-flex items-center rounded-md border border-blue-500 bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:border-blue-400 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700"
+                    title={'Go to a random unsolved problem'}
+                  >
+                    <svg
+                      className={'mr-2 h-5 w-5 text-gray-200'}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                      <circle cx="8" cy="8" r="1" />
+                      <circle cx="16" cy="8" r="1" />
+                      <circle cx="8" cy="16" r="1" />
+                      <circle cx="16" cy="16" r="1" />
+                      <circle cx="12" cy="12" r="1" />
+                    </svg>
+                    Random
+                  </button>
+                </div>
+                <ProblemHits shuffle={shuffle} random={random} />
+                <div className="mt-3 flex flex-wrap justify-center">
+                  <Pagination showLast={true} className="pr-4" />
+                  <HitsPerPage
+                    items={[
+                      { label: '24 hits per page', value: 24, default: true },
+                      { label: '32 hits per page', value: 32 },
+                      { label: '48 hits per page', value: 48 },
+                    ]}
+                    className="mt-1 lg:mt-0"
+                  />
+                </div>
               </div>
-            </div>
+            </main>
           </div>
         </InstantSearch>
       </div>

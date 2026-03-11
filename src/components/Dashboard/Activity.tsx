@@ -29,7 +29,7 @@ export function ActivityHeatmap({
   const normalizedEndDate = new Date(endDate);
   normalizedEndDate.setHours(0, 0, 0, 0);
   const startDate = new Date(normalizedEndDate);
-  startDate.setMonth(normalizedEndDate.getMonth() - 10);
+  startDate.setMonth(normalizedEndDate.getMonth() - 6);
 
   const heatmapValues = React.useMemo(() => {
     const values: { date: Date; count: number }[] = [];
@@ -51,34 +51,49 @@ export function ActivityHeatmap({
   const activeDateModulesCompleted =
     (activeDateKey && moduleActivities[activeDateKey]?.length) ?? 0;
   return (
-    <div className="py-4 sm:px-6 lg:px-8">
+    <div className="mt-4">
       <div className="bg-white px-4 py-5 shadow-sm transition sm:rounded-lg sm:p-6 dark:bg-gray-800">
         <div className="grid gap-y-4 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-0">
           <div className="col-span-2">
-            <CalendarHeatmap
-              startDate={startDate}
-              endDate={normalizedEndDate}
-              values={heatmapValues}
-              onMouseOver={(_ev, value) => {
-                if (!value) setActiveDate(null);
-                else setActiveDate(value.date);
-              }}
-              classForValue={value => {
-                if (!value || value.count === 0) {
-                  return 'color-empty';
-                }
-                return `color-scale-${Math.min(value.count, 4)}`;
-              }}
-              tooltipDataAttrs={value => {
-                if (!value || !value.date || value.count === 0) {
-                  return { title: 'No activity' };
-                }
+            <div className="pt-2 pb-3">
+              <CalendarHeatmap
+                startDate={startDate}
+                endDate={normalizedEndDate}
+                values={heatmapValues}
+                gutterSize={2}
+                onMouseOver={(_ev, value) => {
+                  if (!value) setActiveDate(null);
+                  else setActiveDate(value.date);
+                }}
+                transformDayElement={(element: React.ReactElement) => {
+                  const size = 12;
+                  const offset = 0;
+                  return React.cloneElement(element, {
+                    width: size,
+                    height: size,
+                    x: element.props.x + offset,
+                    y: element.props.y + offset,
+                    rx: 2,
+                    ry: 2,
+                  });
+                }}
+                classForValue={value => {
+                  if (!value || value.count === 0) {
+                    return 'color-empty';
+                  }
+                  return `color-scale-${Math.min(value.count, 4)}`;
+                }}
+                tooltipDataAttrs={value => {
+                  if (!value || !value.date || value.count === 0) {
+                    return { title: 'No activity' };
+                  }
 
-                return {
-                  title: `${value.count} activit${value.count === 1 ? 'y' : 'ies'}`,
-                };
-              }}
-            />
+                  return {
+                    title: `${value.count} activit${value.count === 1 ? 'y' : 'ies'}`,
+                  };
+                }}
+              />
+            </div>
           </div>
           <div className="col-span-1">
             {activeDate ? (

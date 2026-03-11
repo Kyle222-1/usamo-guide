@@ -1,4 +1,4 @@
-import { graphql, PageProps } from 'gatsby';
+import { graphql, Link, PageProps } from 'gatsby';
 import * as React from 'react';
 import {
   moduleIDToSectionMap,
@@ -9,7 +9,6 @@ import ActiveItems, { ActiveItem } from '../components/Dashboard/ActiveItems';
 import Activity from '../components/Dashboard/Activity';
 import DailyStreak from '../components/Dashboard/DailyStreak';
 import Card from '../components/Dashboard/DashboardCard';
-import DashboardProgress from '../components/Dashboard/DashboardProgress';
 import WelcomeBackBanner from '../components/Dashboard/WelcomeBackBanner';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -134,17 +133,116 @@ export default function DashboardPage(props: PageProps) {
     setFinishedRendering(true);
   }, []);
 
+  const renderStatsTile = (
+    title: string,
+    total: number,
+    counts: {
+      completed: number;
+      inProgress: number;
+      skipped: number;
+      notStarted: number;
+    }
+  ) => {
+    const percentComplete = total === 0 ? 0 : Math.round((counts.completed / total) * 100);
+    const segment = (value: number) => (total === 0 ? 0 : (value / total) * 100);
+
+    return (
+      <Card>
+        <div className="px-4 py-5 sm:p-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h3 className="dark:text-dark-high-emphasis text-lg leading-6 font-medium text-gray-900">
+                {title}
+              </h3>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                {total} total
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-100 px-4 py-3 text-center dark:bg-gray-700">
+              <div className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                {percentComplete}%
+              </div>
+              <div className="text-xs font-medium uppercase text-gray-500 dark:text-gray-300">
+                Complete
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 space-y-3">
+            <div className="flex items-center justify-between text-sm">
+              <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                <span className="h-2.5 w-2.5 rounded-full bg-green-500 dark:bg-green-700" />
+                Completed
+              </span>
+              <span className="font-medium text-gray-900 dark:text-gray-100">
+                {counts.completed}
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                <span className="h-2.5 w-2.5 rounded-full bg-yellow-400 dark:bg-yellow-700" />
+                In progress
+              </span>
+              <span className="font-medium text-gray-900 dark:text-gray-100">
+                {counts.inProgress}
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                <span className="h-2.5 w-2.5 rounded-full bg-blue-500 dark:bg-blue-700" />
+                Skipped
+              </span>
+              <span className="font-medium text-gray-900 dark:text-gray-100">
+                {counts.skipped}
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                <span className="h-2.5 w-2.5 rounded-full bg-gray-300 dark:bg-gray-600" />
+                Not started
+              </span>
+              <span className="font-medium text-gray-900 dark:text-gray-100">
+                {counts.notStarted}
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-5">
+            <div className="flex h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+              <div
+                style={{ width: `${segment(counts.completed)}%` }}
+                className="h-2 bg-green-500 dark:bg-green-700"
+              />
+              <div
+                style={{ width: `${segment(counts.inProgress)}%` }}
+                className="h-2 bg-yellow-400 dark:bg-yellow-700"
+              />
+              <div
+                style={{ width: `${segment(counts.skipped)}%` }}
+                className="h-2 bg-blue-500 dark:bg-blue-700"
+              />
+              <div
+                style={{ width: `${segment(counts.notStarted)}%` }}
+                className="h-2 bg-gray-300 dark:bg-gray-600"
+              />
+            </div>
+          </div>
+        </div>
+      </Card>
+    );
+  };
+
   return (
     <Layout>
       <SEO title="Dashboard" image={null} pathname={props.path} />
 
-      <div className="dark:bg-dark-surface min-h-screen bg-gray-100">
+      <div className="ui-page min-h-screen">
         <TopNavigationBar linkLogoToIndex={true} redirectToDashboard={false} />
 
         {finishedRendering && (
           <main className="pb-12">
-            <div className="mx-auto mb-4 max-w-7xl">
-              <div className="pt-4 pb-6 lg:px-8">
+            <div className="mx-auto mb-4 max-w-screen-2xl">
+              <div className="pt-4 pb-6 lg:px-4">
                 <div className="mb-4 flex flex-wrap">
                   <div className="w-full text-center">
                     {currentUser ? (
@@ -168,72 +266,73 @@ export default function DashboardPage(props: PageProps) {
                     )}
                   </div>
                 </div>
-                <WelcomeBackBanner
-                  lastViewedModuleURL={lastViewedModuleURL}
-                  lastViewedModuleLabel={moduleIDToName[lastViewedModuleID]}
-                />
               </div>
             </div>
-            <div className="mx-auto max-w-7xl sm:px-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:px-8">
-              {activeProblems.length > 0 && (
-                <div className="mb-8">
-                  <ActiveItems type="problems" items={activeProblems} />
-                </div>
-              )}
-              {activeModules.length > 0 && (
-                <div className="mb-8">
-                  <ActiveItems type="modules" items={activeModules} />
-                </div>
-              )}
-            </div>
-            <header>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <h1 className="dark:text-dark-high-emphasis text-3xl leading-tight font-bold text-gray-900">
-                  Activity
-                </h1>
+            <div className="mx-auto mb-8 max-w-screen-2xl px-4 sm:px-6 lg:px-4">
+              <div className="grid gap-8 lg:grid-cols-3">
+                <section className="lg:col-span-2">
+                  <h1 className="dark:text-dark-high-emphasis text-3xl leading-tight font-bold text-gray-900">
+                    Activity
+                  </h1>
+                  <Activity />
+                </section>
+                <section className="lg:col-span-1">
+                  <h2 className="dark:text-dark-high-emphasis text-2xl leading-tight font-bold text-gray-900">
+                    Active items
+                  </h2>
+                  <div className="mt-4 space-y-6">
+                    {activeProblems.length > 0 && (
+                      <ActiveItems type="problems" items={activeProblems} />
+                    )}
+                    {activeModules.length > 0 && (
+                      <ActiveItems type="modules" items={activeModules} />
+                    )}
+                    {activeProblems.length === 0 && activeModules.length === 0 && (
+                      <Card>
+                        <div className="px-4 py-5 text-sm text-gray-600 sm:p-6 dark:text-gray-400">
+                          No active problems or modules yet.
+                        </div>
+                      </Card>
+                    )}
+                  </div>
+                </section>
               </div>
-            </header>
-            <div className="mx-auto mb-8 max-w-7xl">
-              <Activity />
+              <div className="mt-6 flex">
+                <Link
+                  className="inline-flex w-full items-center justify-center rounded-md bg-blue-800 px-5 py-3 text-base font-medium text-white transition hover:bg-blue-600 dark:hover:bg-blue-700"
+                  to={
+                    lastViewedModuleURL ||
+                    '/foundations/number-sense/arithmetic-nt-basics'
+                  }
+                >
+                  {lastViewedModuleURL
+                    ? `Continue: ${moduleIDToName[lastViewedModuleID]}`
+                    : 'Continue: Arithmetic and Number Theory Basics!'}
+                </Link>
+              </div>
             </div>
             <header>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-4">
                 <h1 className="dark:text-dark-high-emphasis text-3xl leading-tight font-bold text-gray-900">
                   Statistics
                 </h1>
               </div>
             </header>
-            <div className="mx-auto max-w-7xl">
-              <div className="space-y-8 py-4 sm:px-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0 lg:px-8">
+            <div className="mx-auto max-w-screen-2xl">
+              <div className="space-y-8 py-4 sm:px-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0 lg:px-4">
                 <div className="space-y-8">
-                  <Card>
-                    <div className="px-4 py-5 sm:p-6">
-                      <h3 className="dark:text-dark-high-emphasis text-lg leading-6 font-medium text-gray-900">
-                        Modules Progress - {SECTION_LABELS[lastViewedSection]}
-                      </h3>
-                      <div className="mt-6">
-                        <DashboardProgress
-                          {...allModulesProgressInfo}
-                          total={moduleProgressIDs.length}
-                        />
-                      </div>
-                    </div>
-                  </Card>
+                  {renderStatsTile(
+                    `Modules Progress - ${SECTION_LABELS[lastViewedSection]}`,
+                    moduleProgressIDs.length,
+                    allModulesProgressInfo
+                  )}
                 </div>
                 <div className="space-y-8">
-                  <Card>
-                    <div className="px-4 py-5 sm:p-6">
-                      <h3 className="dark:text-dark-high-emphasis text-lg leading-6 font-medium text-gray-900">
-                        Problems Progress - {SECTION_LABELS[lastViewedSection]}
-                      </h3>
-                      <div className="mt-6">
-                        <DashboardProgress
-                          {...allProblemsProgressInfo}
-                          total={Object.keys(problemStatisticsIDs).length}
-                        />
-                      </div>
-                    </div>
-                  </Card>
+                  {renderStatsTile(
+                    `Problems Progress - ${SECTION_LABELS[lastViewedSection]}`,
+                    Object.keys(problemStatisticsIDs).length,
+                    allProblemsProgressInfo
+                  )}
                 </div>
                 <DailyStreak streak={consecutiveVisits} />
               </div>

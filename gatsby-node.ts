@@ -10,13 +10,44 @@ import {
   ProblemMetadata,
   ShortProblemInfo,
 } from './src/models/problem';
+
+let gitAvailable: boolean | null = null;
+
+function hasGitRepo() {
+  if (gitAvailable !== null) return gitAvailable;
+  try {
+    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' });
+    gitAvailable = true;
+  } catch {
+    gitAvailable = false;
+  }
+  return gitAvailable;
+}
+
+function getGitAuthorTime(filePath: string) {
+  if (hasGitRepo()) {
+    try {
+      return execSync(`git log -1 --pretty=format:%aI ${filePath}`).toString();
+    } catch {
+      // Fall through to file mtime.
+    }
+  }
+  try {
+    return fs.statSync(filePath).mtime.toISOString();
+  } catch {
+    return null;
+  }
+}
+
 // Questionable hack to get full commit history so that timestamps work
-try {
-  execSync(`git fetch --unshallow`);
-} catch (e) {
-  console.warn(
-    'Git fetch failed. Ignore this if developing or building locally.'
-  );
+if (hasGitRepo()) {
+  try {
+    execSync('git fetch --unshallow');
+  } catch (e) {
+    console.warn(
+      'Git fetch failed. Ignore this if developing or building locally.'
+    );
+  }
 }
 
 // ideally problems would be its own query with
@@ -161,14 +192,14 @@ exports.onCreateNode = async api => {
       value: freshOrdering.moduleIDToSectionMap[node.frontmatter.id],
     });
     // https://angelos.dev/2019/09/add-support-for-modification-times-in-gatsby/
-    const gitAuthorTime = execSync(
-      `git log -1 --pretty=format:%aI ${node.fileAbsolutePath}`
-    ).toString();
-    createNodeField({
-      node,
-      name: 'gitAuthorTime',
-      value: gitAuthorTime,
-    });
+    const gitAuthorTime = getGitAuthorTime(node.fileAbsolutePath);
+    if (gitAuthorTime) {
+      createNodeField({
+        node,
+        name: 'gitAuthorTime',
+        value: gitAuthorTime,
+      });
+    }
   }
 };
 

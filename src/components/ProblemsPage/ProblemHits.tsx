@@ -35,7 +35,7 @@ function ProblemHit({ hit }: ProblemHitProps) {
   const problem = hit as unknown as ProblemInfo;
   problem.uniqueId = hit.objectID;
   return (
-    <div className="rounded-lg bg-white p-4 shadow-sm sm:p-6 dark:bg-gray-900">
+    <div className="problem-card rounded-xl p-4 sm:p-6">
       <div className="flex w-full flex-row justify-between">
         <span>
           <span className="text-sm font-medium text-blue-700 dark:text-blue-400">
@@ -135,7 +135,7 @@ function ProblemHit({ hit }: ProblemHitProps) {
         {showTags &&
           hit.tags?.map(tag => (
             <span
-              className="dark:text-dark-high-emphasis mr-2 inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs leading-4 font-medium text-gray-800 dark:bg-gray-800"
+              className="problem-tag-pill dark:text-dark-high-emphasis mr-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs leading-4 font-medium"
               key={tag}
             >
               {tag}

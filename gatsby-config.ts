@@ -13,11 +13,16 @@ const flags = {
   DEV_SSR: false,
 };
 
+const siteUrl =
+  process.env.SITE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
+  `https://usamo.guide/`;
+
 const siteMetadata = {
   title: `USAMO Guide`,
   description: `A comprehensive, free learning platform for AMC 8, AMC 10/12, AIME, and USAMO mathematics. Organized lessons, worked examples, and curated problem sets with full solutions.`,
   author: `@usamoguide`,
-  siteUrl: `https://usamo.guide/`,
+  siteUrl,
   keywords: ['USAMO', 'AIME', 'AMC 10', 'AMC 12', 'AMC 8', 'Math Contest'],
 };
 
@@ -26,6 +31,7 @@ const plugins = [
     resolve: 'gatsby-plugin-sitemap',
     options: {
       excludes: ['/license/', '/editor/'],
+      resolveSiteUrl: () => siteUrl,
     },
   },
   {

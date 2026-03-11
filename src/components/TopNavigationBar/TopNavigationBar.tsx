@@ -26,7 +26,6 @@ import {
   useIsUserDataLoaded,
   useSignOutAction,
 } from '../../context/UserDataContext/UserDataContext';
-import ContactUsSlideover from '../ContactUsSlideover/ContactUsSlideover';
 import { LoadingSpinner } from '../elements/LoadingSpinner';
 import Logo from '../Logo';
 import LogoSquare from '../LogoSquare';
@@ -47,7 +46,6 @@ export default function TopNavigationBar({
   const isLoaded = useIsUserDataLoaded();
   const { signIn } = useSignIn();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [isContactUsActive, setIsContactUsActive] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const resources = [
@@ -130,7 +128,8 @@ export default function TopNavigationBar({
       <nav
         className={classNames(
           !transparent && 'nav-surface',
-          'relative'
+          'relative',
+          !hidePromoBar && 'nav-with-banner'
         )}
       >
         <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
@@ -244,12 +243,12 @@ export default function TopNavigationBar({
                     </div>
                   </PopoverPanel>
                 </Popover>
-                <button
-                  className="dark:text-dark-high-emphasis inline-flex cursor-pointer items-center border-b-2 border-transparent px-1 text-base leading-6 font-medium text-gray-500 transition hover:border-gray-300 hover:text-gray-900 focus:border-gray-300 focus:text-gray-900 focus:outline-hidden dark:hover:border-gray-500 dark:focus:border-gray-500"
-                  onClick={() => setIsContactUsActive(true)}
+                <Link
+                  to="/contact-us"
+                  className="dark:text-dark-high-emphasis inline-flex items-center border-b-2 border-transparent px-1 text-base leading-6 font-medium text-gray-500 transition hover:border-gray-300 hover:text-gray-900 focus:border-gray-300 focus:text-gray-900 focus:outline-hidden dark:hover:border-gray-500 dark:focus:border-gray-500"
                 >
                   Contact Us
-                </button>
+                </Link>
               </div>
             </div>
             <div
@@ -434,9 +433,9 @@ export default function TopNavigationBar({
                     Problems
                   </span>
                 </Link>
-                <a
-                  className="group -m-3 flex cursor-pointer items-center rounded-md p-3 hover:bg-gray-100 dark:hover:bg-gray-700"
-                  onClick={() => setIsContactUsActive(true)}
+                <Link
+                  to="/contact-us"
+                  className="group -m-3 flex items-center rounded-md p-3 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <ChatAltIcon
                     className="float-left h-6 w-6 text-gray-600 dark:group-hover:text-gray-400"
@@ -445,7 +444,7 @@ export default function TopNavigationBar({
                   <span className="ml-3 text-base font-medium text-gray-700 dark:text-gray-300">
                     Contact Us
                   </span>
-                </a>
+                </Link>
                 <Link
                   key="Settings"
                   to="/settings"
@@ -491,11 +490,6 @@ export default function TopNavigationBar({
           </div>
         </div>
       </nav>
-
-      <ContactUsSlideover
-        isOpen={isContactUsActive}
-        onClose={() => setIsContactUsActive(false)}
-      />
 
       <SearchModal
         isOpen={isSearchOpen}

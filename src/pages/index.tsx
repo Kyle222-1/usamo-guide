@@ -81,7 +81,7 @@ export default function IndexPage({ path }): JSX.Element {
       </div>
 
       {/* Begin Hero */}
-      <div className="hero-glow -mt-16 bg-gray-100 dark:bg-black">
+      <div className="hero-glow ui-page -mt-16 bg-gray-100 dark:bg-black">
         <div className="flex flex-col px-4 sm:px-6 md:min-h-screen lg:px-8">
           <div className="h-6 sm:h-12"></div>
 
@@ -135,7 +135,7 @@ export default function IndexPage({ path }): JSX.Element {
       {/* End Hero */}
 
       {/* Learn Contest Math. Efficiently. */}
-      <div className="bg-white dark:bg-gray-900">
+      <div className="ui-page bg-white dark:bg-gray-900">
         <div className="h-12 sm:h-20 md:h-36 2xl:h-48"></div>
 
         <div className={containerClasses}>
@@ -248,7 +248,7 @@ export default function IndexPage({ path }): JSX.Element {
       </div>
       {/* End Learn contest math. */}
 
-      <div className="bg-gray-100 dark:bg-black">
+      <div className="ui-page bg-gray-100 dark:bg-black">
         <div className="h-16 md:h-20 2xl:h-36"></div>
         <div className={containerClasses}>
           <div className="dark:hidden">
@@ -290,7 +290,7 @@ export default function IndexPage({ path }): JSX.Element {
         <div className="h-16 md:h-20 2xl:h-36"></div>
       </div>
 
-      <div className="bg-white dark:bg-gray-900">
+      <div className="ui-page bg-white dark:bg-gray-900">
         <div className="h-16 md:h-20 2xl:h-36"></div>
         <div className="px-4 sm:px-6 lg:px-8 2xl:px-16">
           <h2 className={classNames(headerClasses, 'md:text-center')}>
@@ -360,7 +360,7 @@ export default function IndexPage({ path }): JSX.Element {
         <div className="h-16 md:h-20 2xl:h-36"></div>
       </div>
 
-      <div className="bg-gray-100 dark:bg-black">
+      <div className="ui-page bg-gray-100 dark:bg-black">
         <div className="h-16 md:h-20 xl:h-36 2xl:h-48"></div>
 
         <div className={containerClasses}>
@@ -421,90 +421,13 @@ export default function IndexPage({ path }): JSX.Element {
             various initiatives.
           </p>
           <div className="h-8 md:h-12"></div>
-
-          <div className="flex items-center">
-            <GlowingRing>
-              <a
-                href="mailto:sponsorship@joincpi.org"
-                target="_blank"
-                rel="noreferrer"
-                className={classNames(whiteButtonClasses, 'inline-block')}
-              >
-                Sponsor Us
-              </a>
-            </GlowingRing>
-            <span className="ml-4 text-lg font-medium text-gray-400 md:ml-6">
-              or{' '}
-              <a
-                href="https://www.paypal.com/donate?hosted_button_id=FKG88TSTN82E4"
-                target="_blank"
-                rel="noreferrer"
-                className={linkTextStyles}
-              >
-                Donate via PayPal
-              </a>
-            </span>
-            <br />
-          </div>
-          <div className="mt-4 text-base leading-6 text-gray-500 dark:text-gray-400">
-            Read our
-            <a
-              href="https://joincpi.org/sponsorship_prospectus.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className={linkTextStyles}
-            >
-              {' '}
-              sponsorship prospectus
-            </a>
-          </div>
-
-          <div className="h-12 md:h-20"></div>
-
-          <p className="text-lg font-medium text-gray-700 uppercase md:text-xl dark:text-gray-400">
-            Our Sponsors
-          </p>
-          {/* Sponsor logos don't fit well in the light theme */}
-          <p className="pt-6 font-semibold text-gray-600 uppercase md:text-lg dark:text-gray-400">
-            Platinum Sponsors
-          </p>
-          <div className="my-8 grid grid-cols-1 items-center gap-4 space-y-5 text-gray-600 sm:grid-cols-2 sm:space-y-0 md:grid-cols-3 lg:my-6 lg:grid-cols-4 dark:text-gray-400">
-            <div className="col-span-1">
-              <a
-                href="http://non-trivial.org/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <NonTrivial />
-              </a>
-            </div>
-            <div className="col-span-1 pt-5 sm:pt-0">
-              <a href="http://x-camp.academy/" target="_blank" rel="noreferrer">
-                <XCamp />
-              </a>
-            </div>
-          </div>
-          <p className="pt-6 font-semibold text-gray-600 uppercase md:text-lg dark:text-gray-400">
-            Bronze Sponsors
-          </p>
-          <div className="my-8 grid grid-cols-2 items-center gap-0.5 text-gray-400 md:grid-cols-3 lg:my-6 lg:grid-cols-4">
-            <div className="col-span-1">
-              <a
-                href="https://easyfuncoding.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <EasyFunCoding />
-              </a>
-            </div>
-          </div>
         </div>
 
         <div className="h-16 md:h-20 xl:h-36 2xl:h-48"></div>
       </div>
 
       {/* Begin FAQ */}
-      <div className="dark:bg-dark-surface bg-white">
+      <div className="ui-page dark:bg-dark-surface bg-white">
         <div className="mx-auto max-w-(--breakpoint-xl) px-4 pt-12 pb-16 sm:px-6 sm:pt-16 sm:pb-20 lg:px-8 lg:pt-20 lg:pb-28">
           <h2 className={classNames(headerClasses, 'dark:text-gray-100')}>
             Frequently asked questions
@@ -555,10 +478,10 @@ export default function IndexPage({ path }): JSX.Element {
                       bug, typo, broken link, unclear explanation, etc), use the
                       "Contact Us" button. Alternatively, email us at{' '}
                       <a
-                        href="mailto:usamoguide@gmail.com"
+                        href="mailto:thejourneyofpranav@gmail.com"
                         className="text-blue-600 underline dark:text-blue-400"
                       >
-                        usamoguide@gmail.com
+                        thejourneyofpranav@gmail.com
                       </a>
                       .
                     </p>

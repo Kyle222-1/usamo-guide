@@ -2,13 +2,12 @@ import { ExternalLinkIcon } from '@heroicons/react/solid';
 import Filter from 'bad-words';
 import classNames from 'classnames';
 import * as React from 'react';
-import { useState } from 'react';
+import { Link } from 'gatsby';
 import {
   moduleIDToSectionMap,
   moduleIDToURLMap,
   SECTION_LABELS,
 } from '../../content/ordering';
-import ContactUsSlideover from '../components/ContactUsSlideover/ContactUsSlideover';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useSignIn } from '../context/SignInContext';
 import { useCurrentUser } from '../context/UserDataContext/UserDataContext';
@@ -32,7 +31,9 @@ export default function ProblemSolutions({
   const { deleteSolution, upvoteSolution, undoUpvoteSolution, mutateSolution } =
     useUserProblemSolutionActions();
   const currentUser = useCurrentUser();
-  const [isContactUsActive, setIsContactUsActive] = useState(false);
+    const contactLocation = encodeURIComponent(
+      `Problem Solution - ${problem?.name} (ID: ${problem?.uniqueId})`
+    );
   const { signIn } = useSignIn();
   const canModerate = useUserPermissions().canModerate;
   const isDarkMode = useDarkMode();
@@ -128,17 +129,12 @@ export default function ProblemSolutions({
         >
           {currentUser ? 'Submit a Solution' : 'Sign in to submit a solution'}
         </button>
-        <button
+        <Link
           className="btn-primary mx-3 my-4"
-          onClick={() => setIsContactUsActive(true)}
+          to={`/contact-us?location=${contactLocation}`}
         >
           Contact Us
-        </button>
-        <ContactUsSlideover
-          isOpen={isContactUsActive}
-          onClose={() => setIsContactUsActive(false)}
-          defaultLocation={`Problem Solution - ${problem?.name} (ID: ${problem?.uniqueId})`}
-        />
+        </Link>
 
         <div className="h-8" />
         <h3 className="mb-4 border-b border-gray-200 pb-2 text-lg font-semibold dark:border-gray-800">
