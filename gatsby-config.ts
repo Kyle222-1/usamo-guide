@@ -32,6 +32,33 @@ const plugins = [
     options: {
       excludes: ['/license/', '/editor/'],
       resolveSiteUrl: () => siteUrl,
+      query: `
+        {
+          site {
+            siteMetadata {
+              siteUrl
+            }
+          }
+          allSitePage(filter: { path: { ne: "" } }) {
+            nodes {
+              path
+            }
+          }
+        }
+      `,
+      serialize: ({
+        site = { siteMetadata: { siteUrl: siteUrl || 'https://usamo.guide' } },
+        allSitePage = { nodes: [{ path: '/' }] },
+      }) => {
+        const baseUrl =
+          site.siteMetadata?.siteUrl || siteUrl || 'https://usamo.guide';
+        const pages = allSitePage.nodes?.length
+          ? allSitePage.nodes
+          : [{ path: '/' }];
+        return pages.map(node => ({
+          url: `${baseUrl}${node.path}`,
+        }));
+      },
     },
   },
   {
