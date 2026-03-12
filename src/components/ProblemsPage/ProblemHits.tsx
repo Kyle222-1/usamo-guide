@@ -31,6 +31,7 @@ function ProblemHit({ hit }: ProblemHitProps) {
   const showTags = useShowTagsSetting();
   const hideModules = useHideModulesSetting();
   const { isBlindMode } = useBlindMode();
+  const problemModules = hit.problemModules ?? [];
 
   const problem = hit as unknown as ProblemInfo;
   problem.uniqueId = hit.objectID;
@@ -116,7 +117,7 @@ function ProblemHit({ hit }: ProblemHitProps) {
             Appears In:
           </p>
           <ul className="ml-6 list-disc">
-            {hit.problemModules.map(({ id: moduleID, title: moduleLabel }) => (
+            {problemModules.map(({ id: moduleID, title: moduleLabel }) => (
               <li key={moduleID}>
                 <Link
                   to={`/${moduleIDToSectionMap[moduleID]}/${moduleID}/#problem-${hit.objectID}`}

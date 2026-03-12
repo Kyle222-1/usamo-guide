@@ -29,10 +29,10 @@ module.exports = {
       new webpack.DefinePlugin({
         'process.env': JSON.stringify({
           GATSBY_ALGOLIA_INDEX_NAME:
-            process.env.GATSBY_ALGOLIA_INDEX_NAME || 'dev',
-          GATSBY_ALGOLIA_APP_ID: process.env.GATSBY_ALGOLIA_APP_ID || '',
+            process.env.GATSBY_ALGOLIA_INDEX_NAME || 'dev_problems',
+          GATSBY_ALGOLIA_APP_ID: process.env.GATSBY_ALGOLIA_APP_ID || 'GL9P5K4YD8',
           GATSBY_ALGOLIA_SEARCH_KEY:
-            process.env.GATSBY_ALGOLIA_SEARCH_KEY || '',
+            process.env.GATSBY_ALGOLIA_SEARCH_KEY || '0f5e090973e5c8ca44e6c8b83f8b62fb',
         }),
       })
     );

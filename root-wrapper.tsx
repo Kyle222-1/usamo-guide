@@ -1,4 +1,5 @@
 import React from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from 'react-hot-toast';
 import { DarkModeProvider } from './src/context/DarkModeProvider';
 import { EditorContext } from './src/context/EditorContext';
@@ -23,5 +24,6 @@ export const wrapRootElement = ({ element }): JSX.Element => (
       </UserDataProvider>
     </GlobalErrorBoundary>
     <Toaster position="top-right" />
+    <Analytics />
   </>
 );

@@ -81,7 +81,7 @@ export default function IndexPage({ path }): JSX.Element {
       </div>
 
       {/* Begin Hero */}
-      <div className="hero-glow ui-page -mt-16 bg-gray-100 dark:bg-black">
+      <div className="hero-glow ui-page mt-0 md:-mt-16 bg-gray-100 dark:bg-black">
         <div className="flex flex-col px-4 sm:px-6 md:min-h-screen lg:px-8">
           <div className="h-6 sm:h-12"></div>
 

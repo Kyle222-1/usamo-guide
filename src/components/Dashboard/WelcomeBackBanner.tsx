@@ -11,7 +11,7 @@ export default function WelcomeBackBanner({
         className="block px-4 py-6 sm:flex sm:items-center sm:justify-between sm:p-8"
         to={
           lastViewedModuleURL ||
-          '/foundations/number-sense/arithmetic-nt-basics'
+          '/foundations/arithmetic-nt-basics'
         }
       >
         <div>

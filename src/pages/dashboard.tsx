@@ -302,7 +302,7 @@ export default function DashboardPage(props: PageProps) {
                   className="inline-flex w-full items-center justify-center rounded-md bg-blue-800 px-5 py-3 text-base font-medium text-white transition hover:bg-blue-600 dark:hover:bg-blue-700"
                   to={
                     lastViewedModuleURL ||
-                    '/foundations/number-sense/arithmetic-nt-basics'
+                    '/foundations/arithmetic-nt-basics'
                   }
                 >
                   {lastViewedModuleURL

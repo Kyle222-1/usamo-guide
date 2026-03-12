@@ -140,10 +140,7 @@ export default function TopNavigationBar({
                 state={{ redirect: redirectToDashboard }}
                 className="flex shrink-0 items-center"
               >
-                <div className="block sm:hidden">
-                  <LogoSquare className="h-10 w-10" />
-                </div>
-                <div className={'hidden h-9 sm:block'}>
+                <div className="h-8 sm:h-9">
                   <Logo />
                 </div>
               </Link>
