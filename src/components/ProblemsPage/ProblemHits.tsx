@@ -84,22 +84,14 @@ function ProblemHit({ hit }: ProblemHitProps) {
         </a>
       </div> */}
 
-      {hit.solution &&
-        (hit.solution.kind === 'internal' || hit.solution.kind === 'link') && (
-          <a
-            href={
-              hit.solution.kind === 'internal'
-                ? `${getProblemURL({
-                    ...hit,
-                    uniqueId: hit.objectID,
-                  })}/solution`
-                : hit.solution.url
-            }
-            target="_blank"
-            rel="noreferrer"
-            className="dark:text-dark-med-emphasis text-sm text-gray-500"
-          >
-            View Solution
+      {hit.solution && hit.solution.kind === 'link' && (
+        <a
+          href={hit.solution.url}
+          target="_blank"
+          rel="noreferrer"
+          className="dark:text-dark-med-emphasis text-sm text-gray-500"
+        >
+          View Solution
             <svg
               viewBox="0 0 20 20"
               fill="currentColor"

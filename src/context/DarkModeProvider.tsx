@@ -31,30 +31,8 @@ export function DarkModeProvider({ children }) {
 
   useEffect(() => {
     setIsClient(true);
-    if (!isLoaded) {
-      setDarkMode(document.documentElement.classList.contains('dark'));
-    }
-    if (theme === 'system') {
-      if (!window.matchMedia) {
-        setDarkMode(false);
-        return;
-      }
-
-      const query = window.matchMedia('(prefers-color-scheme: dark)');
-
-      setDarkMode(query.matches);
-
-      const onChange = e => setDarkMode(e.matches);
-      // some browsers don't support addEventListener
-      if (query.addEventListener) {
-        query.addEventListener('change', onChange);
-        return () => query.removeEventListener('change', onChange);
-      }
-    } else {
-      if (theme === 'light') setDarkMode(false);
-      else if (theme === 'dark') setDarkMode(true);
-      else throw new Error('Unknown theme ' + theme);
-    }
+    // Force dark mode globally. Light mode is disabled.
+    setDarkMode(true);
   }, [theme, isLoaded]);
 
   return (

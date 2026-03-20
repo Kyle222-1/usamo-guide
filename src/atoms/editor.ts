@@ -54,10 +54,7 @@ export const octokitAtom = atom(get =>
 );
 export const forkAtom = atom<string | undefined>(undefined);
 export const baseTabAtom = atom<'content' | 'problems'>('content');
-export const editingSolutionAtom = atom(get => {
-  const activeFile = get(activeFileAtom);
-  return activeFile && activeFile.path.startsWith('solutions');
-});
+export const editingSolutionAtom = atom(false);
 export const tabAtom = atom(get =>
   get(editingSolutionAtom) ? 'content' : get(baseTabAtom)
 );
@@ -121,7 +118,7 @@ export const createNewInternalSolutionFileAtom = atom(
       file.division ||
       (!module ? 'orphaned' : module.split('_')[1].toLowerCase());
     const newFile: EditorFile = {
-      path: `solutions/${division}/${file.id}.mdx`,
+      path: `content/${division}/${file.id}.mdx`,
       markdown: `---
 id: ${file.id}
 source: ${

@@ -10,11 +10,7 @@ export default function useSuffix() {
   const markdownInfo = moduleLayoutInfo.markdownLayoutInfo;
   const relativePath = markdownInfo.fileRelativePath;
   let suffix = '';
-  if (markdownInfo instanceof ModuleInfo) {
-    // /\d_.*/.test(relativePath)
-    suffix = 'content/' + relativePath;
-  } else {
-    suffix = 'solutions/' + relativePath;
-  }
+  // All markdown content for modules and problems lives under content.
+  suffix = 'content/' + relativePath;
   return suffix;
 }

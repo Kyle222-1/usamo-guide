@@ -2,6 +2,17 @@
 html {
   background-color: var(--bg-page);
   color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+body,
+button,
+input,
+textarea,
+select,
+code,
+pre {
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 html.dark {

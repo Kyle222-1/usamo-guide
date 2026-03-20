@@ -87,13 +87,9 @@ export default function FocusProblem({
             continuing!
           </p>
           {problem.solution?.kind === 'internal' && (
-            <a
-              href={`${getProblemURL(problem)}/solution`}
-              className="mb-0! inline-flex px-4 py-3 text-xs font-normal! text-gray-400! italic hover:underline sm:px-6"
-            >
-              <span className="mr-1">View Internal Solution</span>
-              <ExternalLinkIcon className="h-4 w-4" />
-            </a>
+            <span className="mb-0! inline-flex px-4 py-3 text-xs font-normal! text-gray-400! italic sm:px-6">
+              Internal solution (module content only)
+            </span>
           )}
         </div>
       </div>

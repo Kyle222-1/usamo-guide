@@ -333,19 +333,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
       }
-      solutions: allXdm(
-        filter: { fileAbsolutePath: { regex: "/solutions/" } }
-      ) {
-        edges {
-          node {
-            frontmatter {
-              title
-              id
-              redirects
-            }
-          }
-        }
-      }
       problems: allProblemInfo {
         edges {
           node {
@@ -382,8 +369,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   let problemSlugs = {}; // maps slug to problem unique ID
   let problemInfo = {}; // maps unique problem ID to problem info
   let problemURLToUniqueID = {}; // maps problem URL to problem unique ID
-  let urlsThatCanHaveMultipleUniqueIDs: string[] = [];
-  problems.forEach(({ node }) => {
+  let urlsThatCanHaveMultipleUniqueIDs: string[] = [];  problems.forEach(({ node }) => {
     let slug = getProblemURL(node);
     if (
       problemSlugs.hasOwnProperty(slug) &&
@@ -470,91 +456,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           );
         }
       }
-  });
-  const solutionTemplate = path.resolve(`./src/templates/solutionTemplate.tsx`);
-  const solutions = result.data.solutions.edges;
-  const problemsWithInternalSolutions = new Set<string>();
-  solutions.forEach(({ node }) => {
-    try {
-      // we want to find all problems that this solution can be an internal solution for
-      const problemsForThisSolution = problems.filter(
-        ({ node: problemNode }) => problemNode.uniqueId === node.frontmatter.id
-      );
-      problemsWithInternalSolutions.add(node.frontmatter.id);
-      if (problemsForThisSolution.length === 0) {
-        throw new Error(
-          "Couldn't find corresponding problem for internal solution with frontmatter ID " +
-            node.frontmatter.id +
-            '. If this problem is no longer in any module, add it to content/extraProblems.json.'
-        );
-      }
-      // let's also check that every problem has this as its internal solution -- if an internal solution exists, we should always use it
-      const problemsThatAreMissingInternalSolution =
-        problemsForThisSolution.filter(
-          x => x.node.solution?.kind !== 'internal'
-        );
-      if (problemsThatAreMissingInternalSolution.length > 0) {
-        problemsThatAreMissingInternalSolution.forEach(({ node }) => {
-          console.error(
-            'Problem ' +
-              node.uniqueId +
-              " isn't linked to its corresponding internal solution in module " +
-              node.module.frontmatter.id
-          );
-        });
-        throw new Error(
-          'Internal solution ' +
-            node.frontmatter.id +
-            " isn't linked to all of its problems (see above). Did you forget to update the solution metadata of a module after adding an internal solution?"
-        );
-      }
-      const problem = problemsForThisSolution[0];
-      const path = `${getProblemURL({
-        uniqueId: problem.node.uniqueId,
-        source: problem.node.source,
-        name: problem.node.name,
-      })}/solution`;
-      if (node.frontmatter.redirects) {
-        node.frontmatter.redirects.forEach(fromPath => {
-          createRedirect({
-            fromPath,
-            toPath: path,
-            isPermanent: true,
-          });
-        });
-      }
-      createPage({
-        path: path,
-        component: solutionTemplate,
-        context: {
-          id: node.frontmatter.id,
-        },
-      });
-    } catch (e) {
-      console.error(
-        'Failed to generate internal solution for ' + node.frontmatter.id
-      );
-      throw e;
-    }
-  });
-  let hasProblemMissingInternalSolution = false;
-  problems
-    .filter(x => x.node.solution?.kind === 'internal')
-    .forEach(({ node: problemNode }) => {
-      if (!problemsWithInternalSolutions.has(problemNode.uniqueId)) {
-        hasProblemMissingInternalSolution = true;
-        reporter.error(
-          `Problem ${problemNode.uniqueId} claims to have an internal solution but doesn't`
-        );
-      }
-    });
-  if (hasProblemMissingInternalSolution) {
-    // Without this, gatsby build will hang indefinitely for unclear reasons.
-    // My best guess is the multiprocessing Gatsby does fails to exit cleanly.
-    // However, somehow sending SIGINT to this process exits fine.
-    process.kill(process.pid, 'SIGINT');
-  }
-  // Generate Syllabus Pages //
+  });  // Generate Syllabus Pages //
   const syllabusTemplate = path.resolve(`./src/templates/syllabusTemplate.tsx`);
   freshOrdering.SECTIONS.forEach(division => {
     createPage({

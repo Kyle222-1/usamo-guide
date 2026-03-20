@@ -12,7 +12,6 @@ import {
   LogoutIcon,
   PresentationChartLineIcon,
   QuestionMarkCircleIcon,
-  SearchIcon,
   TerminalIcon,
   UserGroupIcon,
 } from '@heroicons/react/solid';
@@ -31,7 +30,6 @@ import Logo from '../Logo';
 import LogoSquare from '../LogoSquare';
 import SectionsDropdown from '../SectionsDropdown';
 import Banner from './Banner';
-import { SearchModal } from './SearchModal';
 import { UserAvatarMenu } from './UserAvatarMenu';
 
 export default function TopNavigationBar({
@@ -47,7 +45,6 @@ export default function TopNavigationBar({
   const isLoaded = useIsUserDataLoaded();
   const { signIn } = useSignIn();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const resources = [
     {
@@ -126,7 +123,7 @@ export default function TopNavigationBar({
       {!hidePromoBar && (
         <>
           <Banner
-            text="Join the USAMO Guide Discord Server. Regular updates are posted there."
+            text="Join the USAMO Guide Discord Server. Regular updates are posted there!"
             action="Let me Join!"
             link="https://discord.gg/X2zx6u53XH"
           />
@@ -136,7 +133,7 @@ export default function TopNavigationBar({
       <nav
         className={classNames(
           //!transparent && 'nav-surface',
-          'relative',
+          'relative z-50',
           !hidePromoBar && 'nav-with-banner'
         )}
       >
@@ -190,7 +187,7 @@ export default function TopNavigationBar({
                   </PopoverButton>
                   <PopoverPanel
                     transition
-                    className="absolute left-1/2 z-20 -mt-2 hidden w-screen max-w-md -translate-x-1/2 transform px-2 shadow-lg transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[enter]:ease-out data-[leave]:duration-150 data-[leave]:ease-in sm:px-0 md:block lg:max-w-3xl"
+                    className="absolute left-1/2 z-[120] -mt-2 hidden w-screen max-w-md -translate-x-1/2 transform px-2 shadow-lg transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[enter]:ease-out data-[leave]:duration-150 data-[leave]:ease-in sm:px-0 md:block lg:max-w-3xl"
                   >
                     <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
                       <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 lg:grid-cols-2 dark:bg-[#0D0D0D]">
@@ -236,18 +233,7 @@ export default function TopNavigationBar({
             <div
               className={`flex flex-1 items-center justify-end px-2 lg:ml-6 lg:px-0`}
             >
-              <button
-                type="button"
-                className="dark:text-dark-high-emphasis inline-flex items-center rounded-md border border-transparent px-2 py-1 text-gray-500 hover:text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-                onClick={() => setIsSearchOpen(true)}
-              >
-                <SearchIcon
-                  className="h-5 w-5 text-gray-400 dark:text-gray-300"
-                  aria-hidden="true"
-                />
-
-                <span className="ml-2 font-medium">Search</span>
-              </button>
+              {/* search removed */}
             </div>
             <div className="flex items-center lg:hidden">
               {/* Mobile menu button */}
@@ -486,11 +472,6 @@ export default function TopNavigationBar({
           </div>
         </div>
       </nav>
-
-      <SearchModal
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-      />
     </>
   );
 }

@@ -7,24 +7,32 @@ export const Feature = ({
   title,
   blobClasses,
   feature,
-  featurePosition,
+  featurePosition = 'left',
   fade = 'right',
   children,
+  className,
 }: {
   icon: React.ElementType;
   iconClasses: string;
   title: string;
   blobClasses: string;
   feature: JSX.Element;
-  featurePosition: 'left' | 'right';
+  featurePosition?: 'left' | 'right';
   fade?: 'none' | 'right';
   children: React.ReactNode;
+  className?: string;
 }): JSX.Element => {
   return (
-    <div className="ui-card relative overflow-hidden p-5 sm:p-6 md:p-8">
+    <div
+      className={classNames(
+        'ui-card relative overflow-hidden p-5 sm:p-6 md:p-8 h-full',
+        className
+      )}
+    >
+
       <div
         className={classNames(
-          'relative text-center md:text-left',
+          'relative text-center md:text-left h-full',
           featurePosition === 'left' ? 'sm:pr-1' : 'sm:pl-1'
         )}
       >

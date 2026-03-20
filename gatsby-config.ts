@@ -58,23 +58,8 @@ const plugins = [
   {
     resolve: `gatsby-source-filesystem`,
     options: {
-      path: `${__dirname}/solutions`,
-      name: `solution-images`,
-      ignore: [`**/*.json`, `**/*.mdx`],
-    },
-  },
-  {
-    resolve: `gatsby-source-filesystem`,
-    options: {
       path: `${__dirname}/content`,
       name: `content`,
-    },
-  },
-  {
-    resolve: `gatsby-source-filesystem`,
-    options: {
-      path: `${__dirname}/solutions`,
-      name: `solutions`,
     },
   },
   `gatsby-plugin-image`,

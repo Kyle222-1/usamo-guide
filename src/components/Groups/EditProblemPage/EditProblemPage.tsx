@@ -104,19 +104,13 @@ export default function EditProblemPage(props: Props) {
       name: problem.name,
       body: `See [${problem.url}](${problem.url})`,
       solution:
-        problem.solution?.kind == 'internal'
-          ? `See [https://usamo.guide${[
-              getProblemURL(problemInfo),
-            ]}/solution](https://usamo.guide${[
-              getProblemURL(problemInfo),
-            ]}/solution)`
-          : problem.solution?.kind == 'link'
-            ? `See [${problem.solution.url}](${problem.solution.url})`
-            : problem.solution?.kind == 'label'
-              ? problem.solution.label
-              : problem.solution?.kind === 'sketch'
-                ? problem.solution.sketch
-                : '',
+        problem.solution?.kind == 'link'
+          ? `See [${problem.solution.url}](${problem.solution.url})`
+          : problem.solution?.kind == 'label'
+            ? problem.solution.label
+            : problem.solution?.kind === 'sketch'
+              ? problem.solution.sketch
+              : '',
 
       source: problem.source,
       difficulty: problem.difficulty,

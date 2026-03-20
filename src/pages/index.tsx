@@ -222,197 +222,114 @@ export default function IndexPage({ path }): JSX.Element {
       </div>
       {/* End Hero */}
 
-      {/* Learn Contest Math. Efficiently. */}
-      <div className="relative overflow-hidden bg-linear-to-b from-orange-50 to-white transition-colors duration-500 dark:bg-linear-to-b dark:from-[#160F08] dark:via-[#3a1805] dark:to-[#e85d04]/30">
-        <div className="h-12 sm:h-20 md:h-36 2xl:h-48"></div>
-        <div className="pointer-events-none absolute top-0 left-1/2 h-[500px] w-full -translate-x-1/2 rounded-full bg-orange-500/10 blur-[150px] dark:bg-orange-900/25" />
+      <div className="relative bg-gradient-to-b from-white via-orange-100 to-orange-50 dark:bg-gradient-to-b dark:from-[#e85d04]/10 dark:via-[#e85d04]/20 dark:to-[#e85d04]/30 transition-colors duration-500">
+        <div className="pointer-events-none absolute inset-0 z-0">
+          <div className="absolute inset-0 z-0 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_75%)]">
+            <svg
+              className="h-full w-full opacity-[0.08] dark:opacity-[0.2]"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <pattern id="learn-section-grid-pattern" width="50" height="50" patternUnits="userSpaceOnUse">
+                  <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1" className="text-orange-400/60 dark:text-orange-500/80" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#learn-section-grid-pattern)" />
+            </svg>
+          </div>
+        </div>
 
-        <div className={classNames(containerClasses, '2xl:!max-w-[96rem]')}>
-          <h2 className="mx-auto flex flex-col items-center justify-center pb-3 text-5xl font-bold md:text-6xl dark:text-orange-50/90">
+        <div className="h-12 sm:h-20 md:h-36 2xl:h-48"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-orange-900/20 blur-[150px] rounded-full pointer-events-none" />
+
+        <div className={containerClasses}>
+          <h2 className="justify-center items-center mx-auto flex flex-col text-6xl font-bold pb-3 dark:text-orange-50/90">
             Learn Contest Math
           </h2>
-          <p className={classNames(subtextClasses, 'mx-auto w-full text-center md:!w-2/4')}>
+          <p className={classNames(subtextClasses, 'text-center mx-auto !w-2/4')}>
             Carefully designed for math contest students - available to everyone,
             for free.
           </p>
 
           <div className="h-12 md:h-20 2xl:h-36"></div>
+          <div className="lg:flex gap-2">
+            <Feature
+              icon={DatabaseIcon}
+              iconClasses="from-cyan-400 to-sky-500"
+              title="Curated Resources"
+              blobClasses="bg-sky-200 dark:bg-sky-800 hidden xl:block"
+              feature={<ResourcesFeature />}
+            >
+              Learn new topics from a vetted list of high-quality resources. If
+              one resource doesn't click, look at another!
+            </Feature>
 
-          <div className="flex flex-col gap-6 lg:flex-row lg:gap-2">
-            <div className="flex-1 min-w-0">
-              <Feature
-                icon={DatabaseIcon}
-                iconClasses="from-cyan-400 to-sky-500"
-                title="Curated Resources"
-                blobClasses="bg-sky-200 hidden xl:block dark:bg-sky-800"
-                feature={<ResourcesFeature />}
-                featurePosition="left"
-              >
-                Learn new topics from a vetted list of high-quality resources.
-                If one resource doesn't click, look at another!
-              </Feature>
-            </div>
+            <div className="h-12 md:h-20 2xl:h-36"></div>
 
-            <div className="flex-1 min-w-0">
-              <Feature
-                icon={ClipboardListIcon}
-                iconClasses="from-purple-400 to-indigo-500"
-                title="Extensive Problemsets"
-                blobClasses="bg-purple-300 dark:bg-purple-800"
-                feature={<ProblemsetsFeature />}
-                featurePosition="right"
-              >
-                Practice each topic with extensive problemsets and solutions
-                covering a wide range of difficulties.
-              </Feature>
-            </div>
+            <Feature
+              icon={ClipboardListIcon}
+              iconClasses="from-purple-400 to-indigo-500"
+              title="Extensive Problemsets"
+              blobClasses="bg-purple-300 dark:bg-purple-800"
+              feature={<ProblemsetsFeature />}
+            >
+              Practice each topic with extensive problemsets and solutions
+              covering a wide range of difficulties.
+            </Feature>
           </div>
 
           <div className="h-6 md:h-10 2xl:h-24"></div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
-            <div className="md:col-span-3 min-w-0">
-              <Feature
-                icon={LightningBoltIcon}
-                iconClasses="from-yellow-400 to-orange-500"
-                title="Progress Tracking"
-                blobClasses="bg-orange-200 dark:bg-orange-800"
-                feature={<ProgressTrackingFeature />}
-                featurePosition="left"
-                fade="none"
-              >
-                Use our progress-tracking tools to track your progress in the
-                Guide and stay motivated.
-              </Feature>
-            </div>
-
-            <div className="md:col-span-2 min-w-0">
-              <Feature
-                icon={ChatAlt2Icon}
-                iconClasses="from-green-400 to-cyan-500"
-                title="Help when you need it"
-                blobClasses="bg-green-200 dark:bg-green-800"
-                feature={
-                  <div className="rounded-lg shadow-lg">
-                    <StaticImage
-                      src="../assets/aops_banner.png"
-                      alt="AoPS Community Screenshot"
-                      placeholder="blurred"
-                      layout="constrained"
-                      width={560}
-                    />
-                  </div>
-                }
-                featurePosition="right"
-                fade="none"
-              >
-                <span className="mb-4 block md:mb-8">
-                  Ask questions, share solutions, and learn from other contest
-                  students in the AoPS community.
-                </span>
-
-                <a
-                  href="https://artofproblemsolving.com/community"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={linkTextStyles}
-                >
-                  Visit AoPS Community &rarr;
-                </a>
-              </Feature>
-            </div>
-          </div>
-        </div>
-
-        <div className="h-16 md:h-20 2xl:h-36"></div>
-      </div>
-      {/* End Learn contest math. */}
-
-      <div className="relative overflow-hidden bg-linear-to-b from-[#e85d04]/30 via-[#3d1a04] to-[#e85d04]/40 text-center transition-colors duration-500">
-        <div className="h-16 md:h-20 2xl:h-36"></div>
-
-        <div
-          className={classNames(
-            containerClasses,
-            'relative mx-auto w-11/12 overflow-hidden rounded-4xl border border-white/60 bg-linear-to-br from-white/95 via-[#f4dcbf] to-[#fb923c] px-8 py-20 shadow-[0_20px_60px_-15px_rgba(249,115,22,0.3)] backdrop-blur-md transition-all duration-500 md:w-3/4'
-          )}
-        >
-          <div className="pointer-events-none absolute inset-0 opacity-[0.15] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
-            <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path
-                    d="M 40 0 L 0 0 0 40"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    className="text-orange-900"
-                  />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#grid)" />
-            </svg>
-          </div>
-
-          <div className="pointer-events-none absolute -right-24 -bottom-24 h-96 w-96 rounded-full bg-orange-400/20 blur-[100px]" />
-          <div className="pointer-events-none absolute top-0 right-0 left-0 h-20 rounded-t-4xl bg-linear-to-b from-white/40 to-transparent" />
-
-          <div className="relative z-10">
-            <div className="dark:hidden">
-              <h1 className={classNames(headerClasses, 'text-orange-900')}>
-                Streamline your Learning
-              </h1>
-            </div>
-            <div className="invisible h-0 dark:visible dark:h-auto">
-              <h2 className={classNames(headerClassesNoText, 'text-orange-900 !font-bold')}>
-                Streamline your Learning
-              </h2>
-            </div>
-
-            <div className="h-4 2xl:h-12"></div>
-
-            <p
-              className={classNames(
-                subtextClasses,
-                'mx-auto w-11/12 text-center !font-medium !text-[#62210b] md:w-3/4'
-              )}
+          <div className='lg:grid grid-cols-5 gap-4'>
+            <Feature
+              icon={LightningBoltIcon}
+              iconClasses="from-yellow-400 to-orange-500"
+              title="Progress Tracking"
+              blobClasses="bg-orange-200 dark:bg-orange-800"
+              feature={<ProgressTrackingFeature />}
+              fade="none"
+              className='col-start-1 col-end-4 mb-6'
             >
-              This guide is written by <span className="text-[#9a3412]">top math contest performers</span> and
-              educators who care about clean, rigorous solutions.
-            </p>
-            <div className="h-16 2xl:h-12"></div>
+              Use our progress-tracking tools to track your progress in the Guide
+              and stay motivated.
+            </Feature>
 
-            <div className="brightness-50 contrast-125 opacity-70">
-              <TrustedBy />
-            </div>
-
-            <div className="h-8 md:h-12 2xl:h-16"></div>
-
-            <div className="group relative inline-block">
-              <div className="absolute -inset-1 rounded-full bg-orange-600/20 opacity-0 blur-xl transition duration-500 group-hover:opacity-100"></div>
-              <Link
-                to="/dashboard"
-                className="relative inline-flex items-center rounded-full bg-[#2a0e06] px-12 py-4 font-bold text-orange-50 shadow-2xl transition-all hover:scale-105 hover:bg-black active:scale-95"
-              >
-                View Guide
-                <svg
-                  className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+            <Feature
+              icon={ChatAlt2Icon}
+              iconClasses="from-green-400 to-cyan-500"
+              title="Help when you need it"
+              blobClasses="bg-green-200 dark:bg-green-800"
+              className='col-span-5 md:col-start-4 md:col-end-6'
+              feature={
+                <div className="rounded-lg shadow-lg">
+                  <StaticImage
+                    src="../assets/aops_banner.png"
+                    alt="AoPS Community Screenshot"
+                    placeholder="blurred"
+                    layout="constrained"
+                    width={560}
                   />
-                </svg>
-              </Link>
-            </div>
+                </div>
+              }
+              fade="none"
+            >
+              <span className="mb-4 block md:mb-8">
+                Ask questions, share solutions, and learn from other contest
+                students in the AoPS community.
+              </span>
+
+              <a
+                href="https://artofproblemsolving.com/community"
+                target="_blank"
+                rel="noreferrer"
+                className={linkTextStyles}
+              >
+                Visit AoPS Community →
+              </a>
+            </Feature>
           </div>
+
+          <div className="h-16 md:h-20 2xl:h-36"></div>
         </div>
-        <div className="h-16 md:h-20 2xl:h-36"></div>
       </div>
 
       <ActiveCardsHome/>
@@ -455,45 +372,6 @@ export default function IndexPage({ path }): JSX.Element {
           </div>
 
           <hr className="my-16 border-gray-300 md:my-20 2xl:my-24 dark:border-gray-800" />
-
-          <div className="dark:hidden">
-            <h1 className={classNames(headerClasses)}>
-              Or, help us financially!
-            </h1>
-          </div>
-          <div className="invisible h-0 dark:visible dark:h-auto">
-            <GlowingText
-              className={classNames(headerClassesNoText, 'text-white')}
-              extraGlow
-            >
-              Or, help us financially!
-            </GlowingText>
-          </div>
-          <div className="h-8 md:h-12"></div>
-          <div className="flex items-center">
-            <GlowingRing>
-              <a
-                href="mailto:contact@usamoguide.com"
-                target="_blank"
-                rel="noreferrer"
-                className={classNames(whiteButtonClasses, 'inline-block')}
-              >
-                Sponsor Us
-              </a>
-            </GlowingRing>
-            <span className="ml-4 text-lg font-medium text-gray-400 md:ml-6">
-              or{' '}
-              <a
-                href="https://www.paypal.com/donate?hosted_button_id=FKG88TSTN82E4"
-                target="_blank"
-                rel="noreferrer"
-                className={linkTextStyles}
-              >
-                Donate via PayPal
-              </a>
-            </span>
-            <br />
-          </div>
         </div>
 
         <div className="h-16 md:h-20 xl:h-36 2xl:h-48"></div>

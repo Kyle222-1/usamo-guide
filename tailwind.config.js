@@ -2,11 +2,13 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
 module.exports = {
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
-        sans: ['DM Mono', ...defaultTheme.fontFamily.mono],
-        mono: ['DM Mono', ...defaultTheme.fontFamily.mono],
+        sans: ['Space Grotesk', ...defaultTheme.fontFamily.sans],
+        brand: ['Space Grotesk', 'sans-serif'],
+        mono: ['Space Grotesk', ...defaultTheme.fontFamily.mono],
       },
       boxShadow: {
         xs: '0 0 0 1px rgba(0, 0, 0, 0.05)',
