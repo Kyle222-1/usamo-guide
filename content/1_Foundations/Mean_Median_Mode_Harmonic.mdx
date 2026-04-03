@@ -1,72 +1,114 @@
 ---
 id: mean-median-mode-harmonic
 title: Mean, Median, Mode, and Harmonic Mean
-author: USAMO Guide Team
-description: Core averages and how to interpret them in contest problems.
-prerequisites: []
+author: USAMO Guide Team - Wonwoo Choi
+description: Main averages in competition math, and how to recognize/solve them in olympiad problems.
+prerequisites: [algebra-basics]
 ---
 
 ## Overview
 
-Averages summarize data but behave differently under outliers and transformations.
-Know which average is being used and what it preserves.
-
-Contest problems often hide which average is appropriate. Recognize when the
-mean is inappropriate and when the harmonic mean is required.
+Averages summarize data, and are useful tools that allow us to figure out different patterns and outliers in problems. 
+Hence knowing which average is being used and what it shows in the data is important to know. Contest problems often hide or not show which average is being used or is appropriate to apply in data. 
 
 ## Key Ideas
-
-- Mean is sensitive to outliers; median is not.
-- Mode captures frequency, not magnitude.
-- Harmonic mean is suited to rates and reciprocals.
-- For weighted data, use weighted mean: $\bar{x} = \frac{\sum w_ix_i}{\sum w_i}$.
-- Median depends on ordering, not arithmetic.
-
-## Definitions
-
-Let the data be $a_1,\ldots,a_n$.
-
-- Mean: $\frac{a_1+\cdots+a_n}{n}$.
-- Median: middle value (or average of two middle values if $n$ is even).
-- Mode: most frequent value(s).
-- Harmonic mean: $\frac{n}{\sum \frac{1}{a_i}}$ (for positive values).
-
+ 
+- The mode shows frequency, and is not the magnitude value.
+- Harmonic mean is shown through and reciprocals, especially with equal distance problems.
+- For weighted data, the weighted mean shows $\bar{x} = \dfrac{\sum w_i x_i}{\sum w_i}$.
+- Median depends on ordering, not arithmetic, so sorting the numbers out at the first is important. 
+- For positive numbers, AM $\geq$ GM $\geq$ HM, with equality if all values are the same.
+ 
+## Arithmetic Mean
+ 
+For data $a_1, a_2, \ldots, a_n$, the arithmetic mean is $$\bar{x} = \frac{a_1 + a_2 + \cdots + a_n}{n}.$$
+ 
+The mean is the "point of balance" of the data (Intuitive understanding). It is the value that if every data point were replaced by it, the total sum would be unchanged. This means that
+ 
+$$\text{sum} = n \cdot \bar{x}.$$
+ 
+In contest problems, this is often the most useful form to apply, as if you know the mean and the count, you know the sum, and vice versa.
+ 
+### Weighted Mean
+ 
+When data points carry different weights $w_1, w_2, \ldots, w_n$:
+ 
+$$\bar{x} = \frac{w_1 a_1 + w_2 a_2 + \cdots + w_n a_n}{w_1 + w_2 + \cdots + w_n}.$$
+ 
+These are applied in any situation where some values count, or weigh more than others.
+ 
+### Effect of Transformations in Statistics
+ 
+If every value is shifted by $c$, the mean shifts by $c$ equivalently. If every value is scaled by $k$, the mean scales by $k$. These properties do not hold for the
+median or mode in general.
+ 
+## Median
+ 
+The median is the middle value when the data is sorted in order. For $n$ values, there are two different cases. 
+ 
+- If $n$ is odd: median is the $\dfrac{n+1}{2}$th value.
+- If $n$ is even: median is the average of the $\dfrac{n}{2}$th and $\dfrac{n}{2}+1$th values.
+ 
+Another fact about the median is that it is resistant to outliers. Adding one very large or very small value does not move the median, whereas it can shift the mean significantly.
+ 
+In contest problems, the median is often used in combination with the mean in many cases to set up algebraic equations.
+ 
+## Mode
+ 
+The mode is the most frequently occurring value. A dataset can have more than one mode (bimodal, multimodal) or no mode if all values appear equally often.
+ 
+In the AMC the mode is rarely the focus of a competition problem on its own, but it appears frequently in problems that mix all three averages and ask the problem solver to distinguish/use all three of them.
+ 
+## Harmonic Mean
+ 
+For $n$ positive values $a_1, a_2, \ldots, a_n$, the harmonic mean is $$H = \frac{n}{\dfrac{1}{a_1} + \dfrac{1}{a_2} + \cdots + \dfrac{1}{a_n}}.$$
+ 
+For two values $a$ and $b$:
+ 
+$$H = \frac{2ab}{a+b}.$$
+ 
 ## Worked Example
-
-The average speed for a 60-mile trip is 40 mph going and 60 mph returning.
-What is the overall average speed?
-
-Let each leg be 60 miles. Time out: $60/40 = 1.5$ hours. Time back: $60/60 = 1$ hour.
-Total distance is 120 miles, total time is 2.5 hours, so average speed is
-$120/2.5 = 48$ mph. This is the harmonic mean of 40 and 60.
-
+ 
+A car travels 60 miles at 40 mph and 60 miles back at 60 mph. What is the average speed for the whole trip?
+ 
+The Total distance is $120$ miles.
+The Time at first is $60/40 = 1.5$ hours, and the time back: $60/60 = 1$ hour.
+Hence the total time is $2.5$ hours.
+ 
+$$\text{Average speed} = \frac{120}{2.5} = 48 \text{ mph}.$$
+ 
+This also equals the harmonic mean of $40$ and $60$:
+$\dfrac{2(40)(60)}{40+60} = \dfrac{4800}{100} = 48.$ 
+ 
 ## More Examples
+ 
+### Example 1: Finding a Value from Two Means
+ 
+The mean of seven numbers is $12$. When one number is removed, the mean of the remaining six is $11$. What was the removed number?
+ 
+We know that the original sum is $7 \times 12 = 84$, and the new sum is $6 \times 11 = 66$.
+Therefore, the removed number is $84 - 66 = \mathbf{18}$.
+ 
+This is on of many important strategies for AMC problems, which is never finding the individual numbers, and instead, working entirely with sums.
+ 
+### Example 2: Finding the median of a set with conditions
+What is the median of all values of $N$ such that $N$ can be expressed as the sum of $3$ consecutive integers where the smallest is at most $10$?
+ 
+The three consecutive integers are $k, k+1, k+2$ with $k \leq 10$, and hence we can obtain $N = 3k + 3$ for $k = 1, 2, \ldots, 10$.
+The values are, $6, 9, 12, 15, 18, 21, 24, 27, 30, 33$. Hence, the median of these $10$ values are equivalent to
+$= (18+21)/2 = \mathbf{19.5}$.
+ 
 
-### Example 1: Median with Even Count
-
-Data: $2, 5, 7, 9$. Median is $(5+7)/2 = 6$.
-
-### Example 2: Weighted Mean
-
-A test has 70% homework and 30% exam. Scores are 80 and 90. The overall score
-is $0.7\cdot 80 + 0.3\cdot 90 = 83$.
-
-### Example 3: Mode
-
-Data: $1,2,2,3,3,3,4$. Mode is $3$.
-
+ 
 ## Strategy Checklist
-
-- Is the quantity a rate? If yes, consider harmonic mean.
-- Are there weights? Use weighted mean.
-- Is the data skewed? Median may be more meaningful than mean.
-
+ 
+- If the quantity is a rate (speed, work rate), use the harmonic mean if the same total distance or work is done at each rate.
+- Always check if there are there weights, and use the weighted mean formula.
+- The sum of the data can be found in many manipulations and conversions. $\text{sum} = n \times \text{mean}$.
+- When mixing mean, median, and mode in one problem, set up equations from each definition separately to avoid confusion. 
+ 
 ## Common Pitfalls
-
-- Averaging speeds by simple mean instead of harmonic mean.
-- Confusing median with mean in skewed data.
-- Forgetting to sort before computing the median.
-
-## Practice Problems
-
-<Problems problems="practice" />
+ 
+- Not sorting the set of data before finding the median, leads to errors. The median is a positional value, hence it requires the data to be ordered.
+- The median position for even $n$ can be confused. For even $n$, the median is the average of the two middle values, not just one of them.
+- The weighted mean can be calcluated with the wrong denominator. Divide by the total weight by $\sum w_i$, and not by the number of groups.
